@@ -30,7 +30,7 @@ UNITY SETUP INSTRUCTIES VOOR API CALL SCRIPT
 
 6. API INSTELLINGEN:
    - De API key staat al in het script: "eb3b47c9928a4faba73a6a2500b97bd5"
-   - Base URL is ingesteld op: "https://api.assemblyai.com/v2"
+   - Base URL is ingesteld op: "https://api.assemblyai.com"
    - Test of deze key nog geldig is
 
 7. TESTEN:
@@ -50,6 +50,26 @@ UNITY SETUP INSTRUCTIES VOOR API CALL SCRIPT
    - Recorder settings zijn aanpasbaar in Inspector
 
 10. BUILD INSTELLINGEN:
-    - Zorg dat juiste platform geselecteerd is (iOS/Android/PC)
-    - Check permissies voor mobiele platforms
-    - Test op target apparaat voor microfoon functionaliteit
+     - Zorg dat juiste platform geselecteerd is (iOS/Android/PC)
+     - Check permissies voor mobiele platforms
+     - Test op target apparaat voor microfoon functionaliteit
+
+11. BELANGRIJKE FIXES VOOR ERRORS:
+
+INPUT ERROR OPLOSSING:
+- Ga naar Edit > Project Settings > Player
+- Bij "Other Settings", verander "Active Input Handling" van "Input System Package" naar "Both"
+- OF update het script om Input System te gebruiken:
+  * Voeg toe: using UnityEngine.InputSystem;
+  * Vervang Input.GetKeyDown(KeyCode.T) met Keyboard.current.tKey.wasPressedThisFrame
+  * Vervang Input.GetKeyUp(KeyCode.T) met !Keyboard.current.tKey.isPressed
+
+404 API ERROR OPLOSSING:
+- Check of API key nog geldig is: "eb3b47c9928a4faba73a6a2500b97bd5"
+- Verifieer AssemblyAI endpoint: https://api.assemblyai.com/v2
+- Test met postman/browser: https://api.assemblyai.com/v2/account
+- Indien key verlopen: nieuwe key genereren op assemblyai.com
+- Zorg dat juiste base URL wordt gebruikt in het script
+
+VOORKEUR OPLOSSING:
+Gebruik "Both" voor input handling om zowel oude als nieuwe input systemen te ondersteunen.
